@@ -1,0 +1,19 @@
+create database ticket;
+use  ticket;
+
+drop table lottery_ticket;
+-- delete from lottery_ticket ;
+CREATE TABLE lottery_ticket (
+                                id INT PRIMARY KEY auto_increment,-- до 2,147,483,647
+                                ticket_number VARCHAR(50) UNIQUE,
+                                numbers VARCHAR(255),
+                                status VARCHAR(50),
+                                additional_params VARCHAR(255)
+                            );
+
+
+insert into lottery_ticket (ticket_number,numbers,status)
+values ('016001','0.12.26.32.0.0.0.78.90,0.0.25.35.0.59.69.74.0,1.0.0.0.42.51.63.0.87','sold');
+select * from lottery_ticket;
+select ticket_number, numbers from lottery_ticket where status = 'sold';
+
