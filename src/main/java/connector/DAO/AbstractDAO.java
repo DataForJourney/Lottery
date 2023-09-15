@@ -4,12 +4,12 @@ package connector.DAO;
 import connector.ConnectionPool;
 import exception.DAOException;
 import exception.DBConnectionException;
-
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public abstract class AbstractDAO {
 
-    protected Logger logger = Logger.getLogger(AbstractDAO.class.getName());
+    private static final Logger logger = LogManager.getLogger(ConnectionPool.class.getName());
     private ConnectionPool dbc;
 
     /**

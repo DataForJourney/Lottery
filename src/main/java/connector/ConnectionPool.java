@@ -10,12 +10,15 @@ import java.sql.SQLTimeoutException;
 import java.util.ResourceBundle;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.logging.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ConnectionPool {
 
     private static ConnectionPool instance;
-    private static Logger logger = Logger.getLogger(ConnectionPool.class.getName());
+    // private static log4j.appender.
+    private static final Logger logger = LogManager.getLogger(ConnectionPool.class.getName());
     private static final int initConnectionsCount = 5;
     private BlockingQueue<Connection> connections;
 
@@ -26,6 +29,7 @@ public class ConnectionPool {
 
     /**
      * init form properties file database pool of connections
+     *
      * @throws DBConnectionException if properties file loading error
      */
     private ConnectionPool() throws DBConnectionException {
@@ -55,7 +59,7 @@ public class ConnectionPool {
                 connections.add(connection);
                 logger.info("Connection " + i + " established");
             }
-        } catch (SQLTimeoutException e){
+        } catch (SQLTimeoutException e) {
             throw new DBConnectionException("Failed to authorize", e);
         } catch (SQLException e) {
             throw new DBConnectionException("Failed to establish connection", e);
@@ -65,6 +69,7 @@ public class ConnectionPool {
 
     /**
      * return instance ConnectorPool or create it
+     *
      * @return instance of Singleton
      */
     public static synchronized ConnectionPool getInstance() throws DBConnectionException {
@@ -76,6 +81,7 @@ public class ConnectionPool {
 
     /**
      * deinit database pool of connections
+     *
      * @throws DBConnectionException if properties file loading error
      */
     public synchronized void deinitDBConnector() throws DBConnectionException {
@@ -94,6 +100,7 @@ public class ConnectionPool {
 
     /**
      * take connection from pool
+     *
      * @return connection
      * @throws DBConnectionException if something goes wrong
      */
@@ -105,8 +112,10 @@ public class ConnectionPool {
             throw new DBConnectionException("Failed to get connection from pool", e);
         }
     }
+
     /**
      * return the connection to pool
+     *
      * @param connection to add back to pool
      */
     public synchronized void releaseConnection(Connection connection) throws DBConnectionException {

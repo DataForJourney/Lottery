@@ -3,12 +3,14 @@ package generator;
 
 import connector.DAO.DAOLotteryTicket;
 import exception.DAOException;
+import org.apache.log4j.PropertyConfigurator;
 
 import java.util.*;
 
 public class Demo {
     public static void main(String[] args) throws DAOException {
-
+         System.setProperty("log4j.configurationFile", "src/main/resources/log4j2.xml");
+       // PropertyConfigurator.configure("src/main/resources/log4j2.properties");
         /*
           Генерация билетов, проверка уникальности, проверка наличия 15 чисел
          */
